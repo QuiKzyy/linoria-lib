@@ -1019,8 +1019,9 @@ do
         };
 
         if KeyPicker.SyncToggleState then
-            
-        end
+    Info.Modes = { 'Always', 'Toggle', 'Hold' }
+    Info.Mode = Info.Mode or 'Toggle'
+end
 
         local PickOuter = Library:Create('Frame', {
             BackgroundColor3 = Color3.new(0, 0, 0);
