@@ -950,6 +950,17 @@ do
         keyPicker.SyncToggleState()
     end
 end
+
+if key and keyPicker.Selected then
+    if keyPicker.Mode == "Always" then
+        keyPicker.toggled = false
+        keyPicker.SyncToggleState()
+
+    elseif keyPicker.Mode == "Hold" then
+        keyPicker.toggled = false
+        keyPicker.SyncToggleState()
+    end
+end
         DisplayFrame.InputBegan:Connect(function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
                 if PickerFrameOuter.Visible then
