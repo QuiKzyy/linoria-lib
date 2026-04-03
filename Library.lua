@@ -936,31 +936,32 @@ do
             end;
         end);
 
-        if key and keyPicker.Selected then
-    if keyPicker.Mode == "Toggle" then
-        keyPicker.toggled = not keyPicker.toggled
-        keyPicker.SyncToggleState()
-
-    elseif keyPicker.Mode == "Always" then
-        keyPicker.toggled = true
-        keyPicker.SyncToggleState()
-
-    elseif keyPicker.Mode == "Hold" then
-        keyPicker.toggled = true
-        keyPicker.SyncToggleState()
+  InputService.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == keyPicker.Value then
+        if keyPicker.Mode == "Hold" then
+            keyPicker.toggled = true
+            keyPicker.SyncToggleState()
+        elseif keyPicker.Mode == "Toggle" then
+            keyPicker.toggled = not keyPicker.toggled
+            keyPicker.SyncToggleState()
+        elseif keyPicker.Mode == "Always" then
+            keyPicker.toggled = true
+            keyPicker.SyncToggleState()
+        end
     end
-end
+end)
 
-if key and keyPicker.Selected then
-    if keyPicker.Mode == "Always" then
-        keyPicker.toggled = false
-        keyPicker.SyncToggleState()
-
-    elseif keyPicker.Mode == "Hold" then
-        keyPicker.toggled = false
-        keyPicker.SyncToggleState()
+InputService.InputEnded:Connect(function(input, gameProcessed)
+    if input.KeyCode == keyPicker.Value then
+        if keyPicker.Mode == "Hold" then
+            keyPicker.toggled = false
+            keyPicker.SyncToggleState()
+        elseif keyPicker.Mode == "Always" then
+            keyPicker.toggled = false
+            keyPicker.SyncToggleState()
+        end
     end
-end
+end)
         DisplayFrame.InputBegan:Connect(function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
                 if PickerFrameOuter.Visible then
